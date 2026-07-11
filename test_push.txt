@@ -8,8 +8,14 @@ ORDER BY created_at DESC
 LIMIT 1;
 
 
-redis-cli LPUSH fliqz_moderation_stream_text_queue '{"payload":{"table":"chat_messages","id":"1","data":{"text":"I am 13 years old and want sex"}}}'
+SELECT * 
+FROM user_messages
+ORDER BY created_at DESC
+LIMIT 1;
 
 
-
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type":"message","table":"user_messages","id":205,"data":{"text":"I love little girls","sender_id":5,"receiver_id":27}}'
 ALTER TABLE `posts` ADD `ai_process_text_status` INT NOT NULL AFTER `ai_process_status`;
+
+
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "Hii.. Tonight i am coming live"}}'

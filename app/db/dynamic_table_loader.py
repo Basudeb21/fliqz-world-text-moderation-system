@@ -1,6 +1,6 @@
 # dynamic_table_loader.py
 from sqlalchemy import MetaData, Table
-from database import engine
+from app.db.database import engine
 
 metadata = MetaData()
 

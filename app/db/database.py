@@ -3,7 +3,7 @@
 import os
 
 from dotenv import load_dotenv
-
+from app.utils.logger import logger
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -59,16 +59,10 @@ URL = (
 # Debug
 # -----------------------------------
 
-print("\n========== DATABASE ==========")
 
-print("DB_USER      :", repr(DB_USER))
-print("DB_HOST      :", repr(DB_HOST))
-print("DB_PORT      :", repr(DB_PORT))
-print("DB_DATABASE  :", repr(DB_DATABASE))
-
-print("DATABASE URL :", URL)
-
-print("==============================\n")
+logger.info(
+    f"Database Connected -> {DB_HOST}:{DB_PORT}/{DB_DATABASE}"
+)
 
 # -----------------------------------
 # SQLAlchemy Engine

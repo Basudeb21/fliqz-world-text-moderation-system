@@ -1,0 +1,23 @@
+2026-07-11 22:09:43 | INFO     | Database Connected -> localhost:3306/myvault
+2026-07-11 22:09:43 | INFO     | 🚀 Worker started - Listening on 'fliqz_moderation_stream_text_queue'
+2026-07-11 22:09:50 | INFO     | ────────────────────────────────────────────────────────────
+2026-07-11 22:09:50 | INFO     | Message Received
+2026-07-11 22:09:50 | INFO     | Hii.. Tonight i am coming live
+2026-07-11 22:09:50 | DEBUG    | Dynamic Update -> Table=user_messages
+2026-07-11 22:09:50 | DEBUG    | Primary Key -> id=205
+2026-07-11 22:09:50 | DEBUG    | Update Data: {'ai_process_text_status': 2, 'updated_at': datetime.datetime(2026, 7, 11, 22, 9, 50, 790496)}
+2026-07-11 22:09:50 | INFO     | Updated user_messages (id=205) Rows=1
+2026-07-11 22:09:51 | DEBUG    | Dynamic Update -> Table=user_messages
+2026-07-11 22:09:51 | DEBUG    | Primary Key -> id=205
+2026-07-11 22:09:51 | DEBUG    | Update Data: {'ai_process_text_status': 3, 'is_personal_details_detected': 0, 'is_minor_message_detected': 1, 'is_blocked': 1, 'ai_reason': 'child_safety: live', 'updated_at': datetime.datetime(2026, 7, 11, 22, 9, 51, 933138)}
+2026-07-11 22:09:51 | INFO     | Updated user_messages (id=205) Rows=1
+2026-07-11 22:09:51 | INFO     | ========== MODERATION ==========
+2026-07-11 22:09:51 | INFO     | pii                 Detected=False Severity=low
+2026-07-11 22:09:51 | INFO     | child_safety        Detected=True Severity=critical
+2026-07-11 22:09:51 | INFO     | --------------------------------
+2026-07-11 22:09:51 | INFO     | Action     : BLOCK
+2026-07-11 22:09:51 | INFO     | Blocked    : True
+2026-07-11 22:09:51 | INFO     | Categories : ['child_safety']
+2026-07-11 22:09:51 | INFO     | ================================
+2026-07-11 22:09:51 | INFO     | ✓ Processing Finished
+2026-07-11 22:09:51 | INFO     | ────────────────────────────────────────────────────────────
