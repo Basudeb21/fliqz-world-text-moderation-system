@@ -1,8 +1,14 @@
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import (
+    ThreadPoolExecutor,
+    as_completed,
+)
 from time import perf_counter
 from typing import List
+import traceback
 
-from app.moderation.config.detector_registry import get_registered_detectors
+from app.moderation.config.detector_registry import (
+    get_registered_detectors,
+)
 from app.moderation.config.moderation_settings import (
     DETECTOR_TIMEOUT,
     IGNORE_DETECTOR_ERRORS,
@@ -12,7 +18,9 @@ from app.moderation.config.moderation_settings import (
 )
 from app.moderation.detectors.base import BaseDetector
 from app.moderation.policies.policy_engine import PolicyEngine
-from app.moderation.schemas.moderation_result import ModerationResult
+from app.moderation.schemas.moderation_result import (
+    ModerationResult,
+)
 
 
 class ModerationEngine:
@@ -25,14 +33,16 @@ class ModerationEngine:
         self.policy = PolicyEngine()
         self.detectors = get_registered_detectors()
 
-    def register(self, detector: BaseDetector):
-
+    def register(
+        self,
+        detector: BaseDetector,
+    ):
         self.detectors.append(detector)
 
     def _run_detector(
         self,
         detector: BaseDetector,
-        text: str
+        text: str,
     ) -> ModerationResult:
 
         start = perf_counter()
@@ -42,6 +52,11 @@ class ModerationEngine:
             result = detector.analyze(text)
 
         except Exception as e:
+
+            print("\n" + "=" * 80)
+            print(f"❌ ERROR inside detector: {detector.name}")
+            traceback.print_exc()
+            print("=" * 80 + "\n")
 
             if not IGNORE_DETECTOR_ERRORS:
                 raise
@@ -58,94 +73,76 @@ class ModerationEngine:
         end = perf_counter()
 
         if SHOW_DETECTOR_TIME:
-
             print(
                 f"{detector.name:<20}"
-                f"{(end-start)*1000:.2f} ms"
+                f"{(end - start) * 1000:.2f} ms"
             )
 
         return result
 
-    def analyze(self, text: str):
+    def analyze(
+        self,
+        text: str,
+    ):
 
         engine_start = perf_counter()
 
         results: List[ModerationResult] = []
 
-        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        with ThreadPoolExecutor(
+            max_workers=MAX_WORKERS,
+        ) as executor:
 
             futures = {
-
                 executor.submit(
                     self._run_detector,
                     detector,
-                    text
+                    text,
                 ): detector
-
                 for detector in self.detectors
-
             }
 
-            for future, detector in futures.items():
-
+            for future in as_completed(futures):
+                detector = futures[future]
                 try:
 
                     result = future.result(
-                        timeout=DETECTOR_TIMEOUT
+                        timeout=DETECTOR_TIMEOUT,
                     )
 
                     results.append(result)
 
                 except TimeoutError:
 
-                    print(
-                        f"⚠ {detector.name} timed out."
-                    )
+                    print(f"⚠ {detector.name} timed out.")
 
                     results.append(
-
                         ModerationResult(
-
                             category=detector.name,
-
                             detected=False,
-
                             severity="error",
-
                             confidence=0,
-
                             blocked=False,
-
-                            reason="Detector timeout"
-
+                            reason="Detector timeout",
                         )
-
                     )
 
                 except Exception as e:
 
-                    print(
-                        f"❌ {detector.name}: {e}"
-                    )
+                    print("\n" + "=" * 80)
+                    print(f"❌ FUTURE ERROR: {detector.name}")
+                    traceback.print_exc()
+                    print("=" * 80 + "\n")
 
                     results.append(
-
                         ModerationResult(
-
                             category=detector.name,
-
                             detected=False,
-
                             severity="error",
-
                             confidence=0,
-
                             blocked=False,
-
-                            reason=str(e)
-
+                            reason=str(e),
                         )
-
                     )
 
         response = self.policy.evaluate(results)
@@ -153,10 +150,9 @@ class ModerationEngine:
         engine_end = perf_counter()
 
         if SHOW_ENGINE_TIME:
-
             print("\n======================================")
             print(
-                f"Total Moderation Time : {(engine_end-engine_start)*1000:.2f} ms"
+                f"Total Moderation Time : {(engine_end - engine_start) * 1000:.2f} ms"
             )
             print("======================================\n")
 

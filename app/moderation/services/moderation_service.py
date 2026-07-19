@@ -9,15 +9,16 @@ class ModerationService:
     """
     Orchestrates the complete moderation workflow.
 
-    Responsibilities
-    ----------------
-    1. Normalize incoming payload
-    2. Update processing status
-    3. Execute moderation engine
-    4. Persist moderation results
-    5. Return moderation response
+    Flow
+    ----
+    1. Extract text
+    2. Normalize payload
+    3. Mark Processing
+    4. Run Moderation Engine
+    5. Save Result
+    6. Return Response
 
-    This class should contain NO detector logic.
+    No detector logic should exist here.
     """
 
     def __init__(self):
@@ -30,56 +31,49 @@ class ModerationService:
 
     def process(
         self,
-        raw_payload: dict
+        raw_payload: dict,
     ) -> ModerationResponse:
-
-        text = self._extract_text(raw_payload)
 
         payload = self._normalize_payload(raw_payload)
 
-        # -----------------------------
-        # Processing Started
-        # -----------------------------
+        try:
 
-        self._set_processing(payload)
+            text = self._extract_text(raw_payload)
 
-        # -----------------------------
-        # Run Moderation
-        # -----------------------------
+            self._set_processing(payload)
 
-        moderation = self.engine.analyze(text)
+            moderation = self.engine.analyze(text)
 
-        # -----------------------------
-        # Save Result
-        # -----------------------------
+            self._save_result(
+                payload=payload,
+                moderation=moderation,
+            )
 
-        self._save_result(
-            payload=payload,
-            moderation=moderation
-        )
+            return moderation
 
-        return moderation
+        except Exception:
+
+            self._set_failed(payload)
+            raise
 
     # --------------------------------------------------
-    # Private Methods
+    # Payload Helpers
     # --------------------------------------------------
 
     def _extract_text(
         self,
-        raw_payload: dict
+        raw_payload: dict,
     ) -> str:
 
-        return raw_payload.get(
-            "data",
-            {}
-        ).get(
-            "text",
-            ""
+        return (
+            raw_payload
+            .get("data", {})
+            .get("text", "")
         )
 
     def _normalize_payload(
         self,
-        raw_payload: dict
+        raw_payload: dict,
     ) -> dict:
 
         return {
@@ -88,29 +82,44 @@ class ModerationService:
 
             "primary_key": "id",
 
-            "key_value": raw_payload.get("id")
+            "key_value": raw_payload.get("id"),
         }
+
+    # --------------------------------------------------
+    # Status Updates
+    # --------------------------------------------------
 
     def _set_processing(
         self,
-        payload: dict
+        payload: dict,
     ):
 
         payload["ai_process_text_status"] = 2
 
         dynamic_update(payload)
 
+    def _set_failed(
+        self,
+        payload: dict,
+    ):
+
+        payload["ai_process_text_status"] = 4
+
+        dynamic_update(payload)
+
+    # --------------------------------------------------
+    # Save Moderation
+    # --------------------------------------------------
+
     def _save_result(
         self,
         payload: dict,
-        moderation: ModerationResponse
+        moderation: ModerationResponse,
     ):
 
         payload["ai_process_text_status"] = 3
 
         dynamic_update(
-
             payload=payload,
-
-            moderation=moderation
+            moderation=moderation,
         )

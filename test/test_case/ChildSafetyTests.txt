@@ -1,0 +1,24 @@
+# SAFE - Innocent age mention
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I am happy. A 12 years boy"}}'
+
+# UNSAFE - Minor + Sexual
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "Fuck me i am only 16"}}'
+
+# SAFE - Adult content (no minor)
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I will fuck you."}}'
+
+# UNSAFE - Explicit minor sexual content
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I want to have sex with a 12 year old"}}'
+
+# SAFE - Parenting discussion
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "My son is 12 years old and loves soccer"}}'
+
+# UNSAFE - Grooming behavior
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "You are so mature for a 14 year old, I want to meet you"}}'
+
+# SAFE - Educational
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "Child safety is important in schools"}}'
+
+
+
+

@@ -1,4 +1,4 @@
-# detect_pii.py
+# app/moderation/detectors/pii/engine.py
 """
 Enhanced PII detection for raw text with improved address detection
 """

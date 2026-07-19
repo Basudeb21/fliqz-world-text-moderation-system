@@ -12,11 +12,13 @@ DATABASE_FLAG_MAPPING = {
 
     "child_safety": "is_minor_message_detected",
 
+    "suicide": "is_suicide_detected",
+
+    "hate_speech": "is_hate_detected",
+
+    "dangerous_content": "is_dangerous_content_detected",
+
     # Future detectors
-
-    # "suicide": "is_suicide_detected",
-
-    # "hate": "is_hate_detected",
 
     # "spam": "is_spam_detected",
 

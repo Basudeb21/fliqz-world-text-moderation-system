@@ -1,57 +1,46 @@
 # app/utils/logger.py
-
 import logging
-from logging.handlers import RotatingFileHandler
 from pathlib import Path
+from datetime import datetime
 
-from app.config.settings import DEBUG
-
-
-# --------------------------------------------------
-# Log Directory
-# --------------------------------------------------
+# Log Folder
 
 LOG_DIR = Path("logs")
 LOG_DIR.mkdir(exist_ok=True)
 
-LOG_FILE = LOG_DIR / "moderation.log"
+today = datetime.now().strftime("%Y-%m-%d")
 
+LOG_FILE = LOG_DIR / f"moderation_{today}.log"
 
-# --------------------------------------------------
 # Logger
-# --------------------------------------------------
-
 logger = logging.getLogger("moderation")
-
-logger.setLevel(
-    logging.DEBUG if DEBUG else logging.INFO
-)
-
+logger.setLevel(logging.DEBUG)
 logger.propagate = False
 
+# Prevent duplicate handlers
+if logger.handlers:
+    logger.handlers.clear()
 
-if not logger.handlers:
+formatter = logging.Formatter(
+    "%(asctime)s | %(levelname)-8s | %(message)s",
+    "%Y-%m-%d %H:%M:%S",
+)
 
-    formatter = logging.Formatter(
-        "%(asctime)s | %(levelname)-8s | %(message)s",
-        "%Y-%m-%d %H:%M:%S"
-    )
+# Console
 
-    # Console
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+console.setFormatter(formatter)
 
-    console = logging.StreamHandler()
-    console.setFormatter(formatter)
-    logger.addHandler(console)
+# File
 
-    # File
+file_handler = logging.FileHandler(
+    LOG_FILE,
+    encoding="utf-8",
+)
 
-    file_handler = RotatingFileHandler(
-        LOG_FILE,
-        maxBytes=10 * 1024 * 1024,
-        backupCount=5,
-        encoding="utf-8"
-    )
+file_handler.setLevel(logging.DEBUG)
+file_handler.setFormatter(formatter)
 
-    file_handler.setFormatter(formatter)
-
-    logger.addHandler(file_handler)
+logger.addHandler(console)
+logger.addHandler(file_handler)

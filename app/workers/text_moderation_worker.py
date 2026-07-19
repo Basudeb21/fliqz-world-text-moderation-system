@@ -44,7 +44,7 @@ def process_redis_message(raw_payload: dict):
 
         logger.info(
             f"{result.category:<20}"
-            f"Detected={result.detected} "
+            f"Detected={result.detected}"
             f"Severity={result.severity}"
         )
 
@@ -83,15 +83,11 @@ def worker_loop():
             except json.JSONDecodeError:
 
                 try:
-
                     payload = ast.literal_eval(message)
-
                     logger.warning("Parsed Python dict payload")
 
                 except Exception:
-
                     logger.warning("Invalid payload skipped")
-
                     continue
 
             process_redis_message(payload)

@@ -13,7 +13,7 @@ class PIIDetector(BaseDetector):
         detected = detect_personal_info(text)
 
         return ModerationResult(
-            category="pii",
+            category=self.name,
             detected=detected,
             confidence=1.0 if detected else 0.0,
             severity="high" if detected else "low",

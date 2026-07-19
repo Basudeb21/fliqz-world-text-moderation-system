@@ -1,13 +1,4 @@
-redis-cli LPUSH fliqz_moderation_stream_text_queue '{"payload":{"type":"message","table":"user_messages","id":205,"data":{"text":"I leave in Paris","sender_id":23,"receiver_id":5}}}'
-redis-cli LPUSH fliqz_moderation_stream_text_queue "{\"payload\":{\"table\":\"posts\",\"id\":258,\"data\":{\"text\":\"9876543210 call me"}}}"
-
-
-SELECT * 
-FROM posts
-ORDER BY created_at DESC
-LIMIT 1;
-
-
+python3 -m app.workers.text_moderation_worker
 SELECT * 
 FROM user_messages
 ORDER BY created_at DESC
@@ -18,4 +9,4 @@ redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type":"message","table":"u
 ALTER TABLE `posts` ADD `ai_process_text_status` INT NOT NULL AFTER `ai_process_status`;
 
 
-redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "Hii.. Tonight i am coming live"}}'
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "Lets have some sex."}}'

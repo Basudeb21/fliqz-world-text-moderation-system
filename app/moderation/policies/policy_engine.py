@@ -53,6 +53,8 @@ class PolicyEngine:
 
         mapping = {
 
+            "error": -1,
+
             "none": 0,
 
             "low": 1,
@@ -62,9 +64,6 @@ class PolicyEngine:
             "high": 3,
 
             "critical": 4,
-
-            "error": 5
-
         }
-
+       
         return mapping.get(level.lower(), 0)

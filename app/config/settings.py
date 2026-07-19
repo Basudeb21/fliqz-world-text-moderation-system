@@ -71,3 +71,10 @@ LLAMA_API_URL = os.getenv(
     "LLAMA_API_URL",
     "http://localhost:11434/api/generate"
 )
+
+LLAMA_API_URL_TWO = os.getenv(
+    "LLAMA_API_URL_TWO",
+    "http://localhost:11434/api/chat"
+)
+
+LLAMA_MODEL = os.getenv("LLAMA_MODEL", "qwen2.5:7b-instruct")

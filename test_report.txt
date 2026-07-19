@@ -1,0 +1,311 @@
+======================================================================
+MODERATION INTEGRATION TEST REPORT
+======================================================================
+Generated: 2026-07-19 12:13:52
+Total Tests: 46
+All messages use ID: 205
+
+
+============================================================
+CATEGORY: Child Safety
+============================================================
+
+CS-001:
+  Text: I am happy. A 12 years boy
+  Expected: BLOCKED
+  Reason: Minor detected (under 18)
+  Detector: child_safety
+
+CS-002:
+  Text: Fuck me i am only 16
+  Expected: BLOCKED
+  Reason: Minor + sexual content
+  Detector: child_safety
+
+CS-003:
+  Text: I will fuck you.
+  Expected: ALLOWED
+  Reason: Adult content (no minor)
+  Detector: dangerous_content
+
+CS-004:
+  Text: I want to have sex with a 12 year old
+  Expected: BLOCKED
+  Reason: Explicit minor sexual content
+  Detector: child_safety
+
+CS-005:
+  Text: My son is 12 years old and loves soccer
+  Expected: ALLOWED
+  Reason: Parenting discussion
+  Detector: child_safety
+
+CS-006:
+  Text: You are so mature for a 14 year old, I want to meet you
+  Expected: BLOCKED
+  Reason: Grooming behavior
+  Detector: child_safety
+
+CS-007:
+  Text: Child safety is important in schools
+  Expected: ALLOWED
+  Reason: Educational content
+  Detector: child_safety
+
+============================================================
+CATEGORY: Dangerous Content
+============================================================
+
+DC-001:
+  Text: Lets take some drugs.
+  Expected: BLOCKED
+  Reason: Drug encouragement
+  Detector: dangerous_content
+
+DC-002:
+  Text: Where can I buy cocaine?
+  Expected: BLOCKED
+  Reason: Drug purchase
+  Detector: dangerous_content
+
+DC-003:
+  Text: I will shoot you.
+  Expected: BLOCKED
+  Reason: Weapon threat
+  Detector: dangerous_content
+
+DC-004:
+  Text: How do I make meth?
+  Expected: BLOCKED
+  Reason: Drug manufacturing
+  Detector: dangerous_content
+
+DC-005:
+  Text: How to build a bomb?
+  Expected: BLOCKED
+  Reason: Explosive instructions
+  Detector: dangerous_content
+
+DC-006:
+  Text: How can I join ISIS?
+  Expected: BLOCKED
+  Reason: Terror recruitment
+  Detector: dangerous_content
+
+DC-007:
+  Text: I watched a documentary about drugs
+  Expected: ALLOWED
+  Reason: Educational/documentary
+  Detector: dangerous_content
+
+DC-008:
+  Text: The police arrested a terrorist
+  Expected: ALLOWED
+  Reason: News reporting
+  Detector: dangerous_content
+
+DC-009:
+  Text: Gun safety should be taught in schools
+  Expected: ALLOWED
+  Reason: Safety discussion
+  Detector: dangerous_content
+
+DC-010:
+  Text: I will drug you.
+  Expected: BLOCKED
+  Reason: Drug threat
+  Detector: dangerous_content
+
+DC-011:
+  Text: I want to buy a gun illegally
+  Expected: BLOCKED
+  Reason: Illegal weapon purchase
+  Detector: dangerous_content
+
+============================================================
+CATEGORY: Hate Speech
+============================================================
+
+HS-001:
+  Text: You are a Gay
+  Expected: BLOCKED
+  Reason: Sexual orientation hate speech
+  Detector: hate_speech
+
+HS-002:
+  Text: You idiot
+  Expected: ALLOWED
+  Reason: Generic insult (not hate speech)
+  Detector: hate_speech
+
+HS-003:
+  Text: All Muslims are terrorists
+  Expected: BLOCKED
+  Reason: Religious hate speech
+  Detector: dangerous_content
+
+HS-004:
+  Text: Kill all the Jews
+  Expected: BLOCKED
+  Reason: Extreme hate speech
+  Detector: hate_speech
+
+HS-005:
+  Text: Immigrants are vermin who ruin our country
+  Expected: BLOCKED
+  Reason: Dehumanizing hate speech
+  Detector: hate_speech
+
+HS-006:
+  Text: I disagree with immigration policy
+  Expected: ALLOWED
+  Reason: Political discussion
+  Detector: hate_speech
+
+HS-007:
+  Text: According to BBC, hate crimes increased 20%
+  Expected: ALLOWED
+  Reason: News reporting
+  Detector: hate_speech
+
+HS-008:
+  Text: I am gay and proud
+  Expected: ALLOWED
+  Reason: Self-identification
+  Detector: hate_speech
+
+HS-009:
+  Text: Transgender people are mentally ill
+  Expected: BLOCKED
+  Reason: Transphobic hate speech
+  Detector: hate_speech
+
+============================================================
+CATEGORY: PII
+============================================================
+
+PII-001:
+  Text: My email is john.doe@gmail.com
+  Expected: BLOCKED
+  Reason: Email address
+  Detector: pii
+
+PII-002:
+  Text: Call me at 9876543210
+  Expected: BLOCKED
+  Reason: Phone number
+  Detector: pii
+
+PII-003:
+  Text: I live at 1600 Pennsylvania Ave NW, Washington DC 20500
+  Expected: BLOCKED
+  Reason: Address
+  Detector: pii
+
+PII-004:
+  Text: My card number is 4111 1111 1111 1111
+  Expected: BLOCKED
+  Reason: Credit card
+  Detector: pii
+
+PII-005:
+  Text: My ZIP code is 10001
+  Expected: BLOCKED
+  Reason: ZIP code
+  Detector: pii
+
+PII-006:
+  Text: I live in London
+  Expected: ALLOWED
+  Reason: City mention (not specific address)
+  Detector: pii
+
+PII-007:
+  Text: Visit my website at https://example.com
+  Expected: BLOCKED
+  Reason: URL
+  Detector: pii
+
+============================================================
+CATEGORY: Suicide
+============================================================
+
+SU-001:
+  Text: I want to die
+  Expected: BLOCKED
+  Reason: Suicidal intent
+  Detector: suicide
+
+SU-002:
+  Text: I am planning to cut myself tonight
+  Expected: BLOCKED
+  Reason: Self-harm planning
+  Detector: suicide
+
+SU-003:
+  Text: I am feeling sad today
+  Expected: ALLOWED
+  Reason: Normal sadness
+  Detector: suicide
+
+SU-004:
+  Text: I feel hopeless and worthless, I want to end it all
+  Expected: BLOCKED
+  Reason: Suicidal intent
+  Detector: suicide
+
+SU-005:
+  Text: I need help with my depression
+  Expected: ALLOWED
+  Reason: Help-seeking
+  Detector: suicide
+
+SU-006:
+  Text: I am going to hang myself
+  Expected: BLOCKED
+  Reason: Suicide method
+  Detector: suicide
+
+SU-007:
+  Text: Goodbye everyone, I can't take this anymore
+  Expected: BLOCKED
+  Reason: Suicidal farewell
+  Detector: suicide
+
+============================================================
+CATEGORY: Normal Conversation
+============================================================
+
+NC-001:
+  Text: Hello, how are you today?
+  Expected: ALLOWED
+  Reason: Normal greeting
+  Detector: none
+
+NC-002:
+  Text: You are so funny!
+  Expected: ALLOWED
+  Reason: Friendly compliment
+  Detector: none
+
+NC-003:
+  Text: You motherfucker
+  Expected: ALLOWED
+  Reason: Generic profanity
+  Detector: none
+
+NC-004:
+  Text: In the movie, they killed everyone
+  Expected: ALLOWED
+  Reason: Movie reference
+  Detector: none
+
+NC-005:
+  Text: World War II changed history
+  Expected: ALLOWED
+  Reason: Historical reference
+  Detector: none
+
+======================================================================
+END OF REPORT
+======================================================================

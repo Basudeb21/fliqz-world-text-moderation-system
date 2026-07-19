@@ -1,0 +1,32 @@
+# UNSAFE - Drug encouragement
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "Lets take some drugs."}}'
+
+# UNSAFE - Weapon threat
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I will shoot you."}}'
+
+# UNSAFE - Drug purchase
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "Where can I buy cocaine?"}}'
+
+# UNSAFE - Drug manufacturing
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "How do I make meth?"}}'
+
+# UNSAFE - Bomb making
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "How to build a bomb?"}}'
+
+# UNSAFE - Terror recruitment
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "How can I join ISIS?"}}'
+
+# SAFE - Educational (documentary)
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I watched a documentary about drugs"}}'
+
+# SAFE - News reporting
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "The police arrested a terrorist"}}'
+
+# SAFE - Gun safety discussion
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "Gun safety should be taught in schools"}}'
+
+# UNSAFE - Threat to drug someone
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I will drug you."}}'
+
+# UNSAFE - Illegal weapon purchase
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I want to buy a gun illegally"}}'

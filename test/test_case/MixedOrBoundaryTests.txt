@@ -1,0 +1,14 @@
+# SAFE - Normal conversation
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "Hello, how are you today?"}}'
+
+# SAFE - Friendly banter
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "You are so funny!"}}'
+
+# UNSAFE - Abusive language
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "You motherfucker"}}'
+
+# SAFE - Movie quote
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "In the movie, they killed everyone"}}'
+
+# SAFE - Historical context
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "World War II changed history"}}'

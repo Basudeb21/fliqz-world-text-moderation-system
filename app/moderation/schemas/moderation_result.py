@@ -1,7 +1,7 @@
 # schemas/moderation_result.py
 from dataclasses import dataclass, field
 from typing import List, Optional
-
+from typing import Any
 
 @dataclass
 class ModerationResult:
@@ -23,4 +23,4 @@ class ModerationResult:
 
     blocked: bool = False
 
-    metadata: dict = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)

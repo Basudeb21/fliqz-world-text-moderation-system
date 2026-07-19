@@ -1,0 +1,20 @@
+# PII - Email address
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "My email is john.doe@gmail.com"}}'
+
+# PII - Phone number
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "Call me at 9876543210"}}'
+
+# PII - Address
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I live at 1600 Pennsylvania Ave NW, Washington DC 20500"}}'
+
+# PII - Credit card
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "My card number is 4111 1111 1111 1111"}}'
+
+# PII - ZIP code
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "My ZIP code is 10001"}}'
+
+# SAFE - Just a city name (should not flag)
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I live in London"}}'
+
+# PII - URL
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "Visit my website at https://example.com"}}'

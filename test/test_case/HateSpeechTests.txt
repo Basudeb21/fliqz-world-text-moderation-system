@@ -1,0 +1,26 @@
+# UNSAFE - Homophobic hate speech
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "You are a Gay"}}'
+
+# UNSAFE - Racial hate speech
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "All Muslims are terrorists"}}'
+
+# SAFE - Generic insult (not hate speech)
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "You idiot"}}'
+
+# UNSAFE - Violent hate speech
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "Kill all the Jews"}}'
+
+# UNSAFE - Dehumanizing hate speech
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "Immigrants are vermin who ruin our country"}}'
+
+# SAFE - Political discussion
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I disagree with immigration policy"}}'
+
+# SAFE - News reporting
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "According to BBC, hate crimes increased 20%"}}'
+
+# SAFE - Self-identification
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I am gay and proud"}}'
+
+# UNSAFE - Transphobic hate speech
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "Transgender people are mentally ill"}}'

@@ -1,0 +1,20 @@
+# UNSAFE - Suicide intent
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I want to die"}}'
+
+# UNSAFE - Self-harm
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I am planning to cut myself tonight"}}'
+
+# UNSAFE - Suicide method
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I am going to hang myself"}}'
+
+# UNSAFE - Hopelessness
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I feel hopeless and worthless, I want to end it all"}}'
+
+# SAFE - General sadness (no intent)
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I am feeling sad today"}}'
+
+# SAFE - Seeking help
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "I need help with my depression"}}'
+
+# UNSAFE - Suicide farewell
+redis-cli LPUSH fliqz_moderation_stream_text_queue '{"type": "message", "table": "user_messages", "id": 205, "data": {"text": "Goodbye everyone, I can't take this anymore"}}'
